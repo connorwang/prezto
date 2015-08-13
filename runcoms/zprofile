@@ -17,9 +17,10 @@ fi
 # Editors
 #
 
-export EDITOR='nano'
-export VISUAL='nano'
+export EDITOR='subl -n -w'
+export VISUAL=$EDITOR
 export PAGER='less'
+export LSCOLORS="exfxcxdxbxegedabagacad"
 
 #
 # Language
@@ -42,10 +43,6 @@ typeset -gU cdpath fpath mailpath path
 # )
 
 # Set the list of directories that Zsh searches for programs.
-path=(
-  /usr/local/{bin,sbin}
-  $path
-)
 
 #
 # Less
