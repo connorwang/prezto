@@ -25,6 +25,7 @@ alias subl='subl'
 alias co="git checkout"
 alias gb="git branch"
 alias cb="git checkout -b"
+alias pubkey="pbcopy < ~/.ssh/id_rsa.pub"
 
 # why would you type 'cd dir' if you could just type 'dir'?
 setopt AUTO_CD
