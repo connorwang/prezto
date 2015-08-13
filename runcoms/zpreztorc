@@ -41,7 +41,8 @@ zstyle ':prezto:load' pmodule \
   'git'\
   'syntax-highlighting'\
   'history-substring-search'\
-  'tmux'
+  'tmux'\
+  'pod'
 
 #
 # Editor
