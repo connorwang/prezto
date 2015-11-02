@@ -8,9 +8,11 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="usr/local/bin:$PATH"
 export PATH="Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+export PATH="$PATH:/Users/Connor/Projects/arcanist/arcanist/bin"
+export ANDROID_HOME=/usr/local/opt/android-sdk
+
 fpath=("/usr/local/bin/" $fpath)
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
 alias berap='bundle exec rake assets:precompile'
 alias rm='rm -i'
 alias tma='tmux attach -d -t'
@@ -99,3 +101,6 @@ bindkey -M vicmd "q" push-line
  
 # it's like, space AND completion.  Gnarlbot.
 bindkey -M viins ' ' magic-spaceeval 
+
+export NVM_DIR="/Users/Connor/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm

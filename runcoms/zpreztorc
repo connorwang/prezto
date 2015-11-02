@@ -29,6 +29,8 @@ zstyle ':prezto:load' pmodule \
   'editor' \
   'history' \
   'directory' \
+  'fasd'\
+  'node'\
   'spectrum' \
   'utility' \
   'completion' \
@@ -42,7 +44,6 @@ zstyle ':prezto:load' pmodule \
   'syntax-highlighting'\
   'history-substring-search'\
   'tmux'\
-  'pod'
 
 #
 # Editor
