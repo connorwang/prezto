@@ -104,6 +104,8 @@ printf "${BLUE}SUCCESS: Watchman & Flow setup complete${NORMAL}\n"
 echo ""
 
 printf "${GREEN}INFO: Starting Atom + Nuclide setup${NORMAL}\n"
+curl -o atom.zip -J -L https://atom.io/download/mac
+unzip -q atom.zip -d /Applications/test && rm -rf atom.zip
 git clone https://github.com/facebook/nuclide.git
 cd "$HOME/nuclide" || exit
 ./scripts/dev/setup
@@ -134,6 +136,7 @@ touch $HOME/.zshrc
 SYSPATH='export PATH="/usr/local/share/python:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/phabricator/arcanist/bin/"'
 NVMPATH='export NVM_DIR=$HOME/.nvm'
 LOADNVM='source $(brew --prefix nvm)/nvm.sh'
+ANDROIDPATH='export ANDROID_HOME=/usr/local/opt/android-sdk'
 NPMCOMPLETION='[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion'
 ARCCOMPLETION='source "$HOME/phabricator/arcanist/resources/shell/bash-completion"'
 SQUISHALIAS='alias squish="git status && git commit -a --amend -C HEAD"'
@@ -154,6 +157,7 @@ shellfile_append $SQUISHALIAS
 shellfile_append $ARCUPGRADE
 shellfile_append $ZSHPLUGIN
 shellfile_append $ZSHTHEME
+shellfile_append $ANDROIDPATH
 
 echo "${BOLD}${GREEN}INFO: Changing default shell to zsh. Please enter your password."
 chsh -s $(which zsh)
