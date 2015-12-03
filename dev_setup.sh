@@ -103,6 +103,15 @@ brew install watchman flow
 printf "${BLUE}SUCCESS: Watchman & Flow setup complete${NORMAL}\n"
 echo ""
 
+printf "${GREEN}INFO: Starting Atom + Nuclide setup${NORMAL}\n"
+git clone https://github.com/facebook/nuclide.git
+cd "$HOME/nuclide" || exit
+./scripts/dev/setup
+printf "${BLUE}SUCCESS: Atom + Nuclide setup complete${NORMAL}\n"
+echo ""
+
+cd "$HOME" || exit
+
 printf "${GREEN}INFO: Starting arc setup${NORMAL}\n"
 mkdir -p "$HOME/phabricator"
 cd "$HOME/phabricator" || exit
