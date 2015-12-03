@@ -106,6 +106,5 @@ export PATH="/usr/local/share/python:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbi
 source "$HOME/phabricator/arcanist/resources/shell/bash-completion"
 alias squish="git status && git commit -a --amend -C HEAD"
 alias arcupgrade="git -C $HOME/phabricator/arcanist pull && git -C $HOME/phabricator/libphutil pull"
-plugins=(tmux git colored-man colorize copydir copyfile sublime pip python brew osx zsh-syntax-highlighting aws)
 export NVM_DIR=$HOME/.nvm
 source $(brew --prefix nvm)/nvm.sh
