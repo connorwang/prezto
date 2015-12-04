@@ -101,7 +101,7 @@ bindkey -M vicmd "q" push-line
 # it's like, space AND completion.  Gnarlbot.
 bindkey -M viins ' ' magic-spaceeval 
 
-export PATH="/usr/local/share/python:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/phabricator/arcanist/bin/"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/phabricator/arcanist/bin"
 [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 source "$HOME/phabricator/arcanist/resources/shell/bash-completion"
 alias squish="git status && git commit -a --amend -C HEAD"

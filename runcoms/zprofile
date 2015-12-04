@@ -17,7 +17,8 @@ fi
 # Editors
 #
 
-export EDITOR='subl -n -w'
+#export EDITOR='subl -n -w'
+export EDITOR='nano'
 export VISUAL=$EDITOR
 export PAGER='less'
 export LSCOLORS="exfxcxdxbxegedabagacad"

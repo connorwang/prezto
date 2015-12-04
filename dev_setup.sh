@@ -1,8 +1,6 @@
-#!/bin/zsh
+#!/bin/sh
 #Lai Dev Setup Script
 main(){
-
-export SHELL=/bin/zsh
 
 if which tput >/dev/null 2>&1; then
     ncolors=$(tput colors)
@@ -24,7 +22,7 @@ if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
     NORMAL=""
 fi
 
-cd "$HOME" || exit
+cd $HOME || exit
 
 read -p "${BOLD}${YELLOW}INFO: this will remove all your node / nvm / package installation and reinstall for you. \
 As well as set up the dev environment and install the dependencies for you. \
@@ -34,21 +32,21 @@ if [[ $REPLY =~ ^(Y|y|yes|Yes)$ ]]
 then
 
 echo ""
-echo "##############################################################################################"
+echo "============================================================================================"
 echo ""
 printf "${GREEN}${BOLD}Starting Lai dev script to set up dev environment${NORMAL}\n"
 echo ""
 
 printf "${GREEN}INFO: Install Homebrew${NORMAL}\n"
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew update && brew upgrade
+brew update && brew upgrade && brew cleanup
 printf "${BLUE}SUCCESS: Homebrew setup complete${NORMAL}\n"
 echo ""
 
 printf "${GREEN}INFO: Install Zsh and Prezto${NORMAL}\n"
 brew install zsh zsh-completions
 rm -rf $HOME/.z*
-git clone --recursive https://github.com/ZenChat/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+git clone --recursive https://github.com/ZenChat/Lai-Dev-Setup.git "${ZDOTDIR:-$HOME}/.zprezto"
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
     ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
 done
@@ -104,15 +102,28 @@ printf "${BLUE}SUCCESS: Watchman & Flow setup complete${NORMAL}\n"
 echo ""
 
 printf "${GREEN}INFO: Starting Atom + Nuclide setup${NORMAL}\n"
-curl -o atom.zip -J -L https://atom.io/download/mac
-unzip -q atom.zip -d /Applications/test && rm -rf atom.zip
+rm -rf $HOME/atom.zip
+rm -rf $HOME/.atom
+rm -rf $HOME/nuclide
+rm -rf /usr/local/bin/atom
+rm -rf /usr/local/bin/apm
+rm -rf /Applications/Atom.app
+rm -rf $HOME/Library/Preferences/com.github.atom.plist
+rm -rf $HOME/Library/Application\ Support/com.github.atom.ShipIt
+rm -rf $HOME/Library/Application\ Support/Atom
+rm -rf $HOME/Library/Saved\ Application\ State/com.github.atom.savedState
+rm -rf $HOME/Library/Caches/com.github.atom
+rm -rf $HOME/Library/Caches/Atom
+# curl -o atom.zip -J -L https://atom.io/download/mac
+# unzip -q atom.zip -d /Applications/ && rm -rf atom.zip
+brew cask install --force atom
 git clone https://github.com/facebook/nuclide.git
-cd "$HOME/nuclide" || exit
+cd $HOME/nuclide || exit
 ./scripts/dev/setup
 printf "${BLUE}SUCCESS: Atom + Nuclide setup complete${NORMAL}\n"
 echo ""
 
-cd "$HOME" || exit
+cd $HOME || exit
 
 printf "${GREEN}INFO: Starting arc setup${NORMAL}\n"
 mkdir -p "$HOME/phabricator"
@@ -126,14 +137,14 @@ git clone https://github.com/ZenChat/libphutil.git
 
 printf "${BLUE}SUCCESS: arc setup complete${NORMAL}\n"
 echo ""
-echo "##############################################################################################"
+echo "============================================================================================"
 echo ""
 
-cd "$HOME" || exit
+cd $HOME || exit
 touch $HOME/.bashrc
 touch $HOME/.zshrc
 
-SYSPATH='export PATH="/usr/local/share/python:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/phabricator/arcanist/bin/"'
+SYSPATH='export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/phabricator/arcanist/bin/"'
 NVMPATH='export NVM_DIR=$HOME/.nvm'
 LOADNVM='source $(brew --prefix nvm)/nvm.sh'
 ANDROIDPATH='export ANDROID_HOME=/usr/local/opt/android-sdk'
@@ -160,8 +171,14 @@ shellfile_append $ZSHTHEME
 shellfile_append $ANDROIDPATH
 
 echo "${BOLD}${GREEN}INFO: Changing default shell to zsh. Please enter your password."
-chsh -s $(which zsh)
+grep -q -F "/usr/local/bin/zsh" /etc/shells || echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/zsh
 echo ""
+
+# Show hidden files, display full path in terminal
+defaults write com.apple.finder AppleShowAllFiles TRUE
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool YES
+killall Finder
 
 echo ""
 printf "${BOLD}${BLUE}SUCCESS: dev environment setup complete!${NORMAL}\n"
