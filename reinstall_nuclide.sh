@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/local/bin/zsh
 #Lai Dev Fix Atom/Nuclide Script
 
 main(){
