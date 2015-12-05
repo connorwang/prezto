@@ -6,7 +6,7 @@ main(){
 if which tput >/dev/null 2>&1; then
     ncolors=$(tput colors)
 fi
-  
+
 if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
     RED="$(tput setaf 1)"
     GREEN="$(tput setaf 2)"
@@ -23,15 +23,18 @@ if [ -t 1 ] && [ -n "$ncolors" ] && [ "$ncolors" -ge 8 ]; then
     NORMAL=""
 fi
 
-echo "[user]" >> ./.git/config
+read -p "${GREEN}Enter your ${BOLD}${RED}first & last name${NORMAL}: " -r FIRSTNAME LASTNAME
+read -p "${GREEN}Enter your ${BOLD}${RED}lai.io email address${NORMAL}: " -r EMAIL
+git config user.name "$FIRSTNAME $LASTNAME"
+git config user.email "$EMAIL"
 
-read -p "${BOLD}${YELLOW}Enter your full name: ${NORMAL} " -r
+git config branch.*branch-name*.rebase true # Force existing branches to use rebase.
+git config branch.autosetuprebase always # Force all new branches to automatically use rebase
+git config branch.master.rebase true
 
-echo "\tb"$REPLY >> ./.git/config
-
-read -p "${BOLD}${YELLOW}Enter your lai.io email address: ${NORMAL} " -r
-
-echo "\tb"$REPLY >> ./.git/config
+echo ""
+printf "${BOLD}${BLUE}SUCCESS: repo setup complete!${NORMAL}\n"
+echo ""
 
 }
 

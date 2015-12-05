@@ -27,6 +27,7 @@ alias co="git checkout"
 alias gb="git branch"
 alias cb="git checkout -b"
 alias pubkey="pbcopy < ~/.ssh/id_rsa.pub"
+alias repoup='sh -c "$(curl -fsSL https://raw.githubusercontent.com/ZenChat/Lai-Dev-Setup/master/set_up_repo.sh)"'
 
 # why would you type 'cd dir' if you could just type 'dir'?
 setopt AUTO_CD
@@ -105,6 +106,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/
 [[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
 source "$HOME/phabricator/arcanist/resources/shell/bash-completion"
 alias squish="git status && git commit -a --amend -C HEAD"
-alias arcupgrade="git -C $HOME/phabricator/arcanist pull && git -C $HOME/phabricator/libphutil pull"
+alias arcupgrade="git -C $HOME/phabricator/arcanist pull --rebase && git -C $HOME/phabricator/libphutil pull --rebase"
 export NVM_DIR=$HOME/.nvm
+source $HOME/.avoscloud_completion.sh
 source $(brew --prefix nvm)/nvm.sh
