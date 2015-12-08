@@ -3,31 +3,30 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-
-export PATH="$HOME/.rbenv/bin:$PATH"
-export PATH="usr/local/bin:$PATH"
-export PATH="Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
-export HOMEBREW_CASK_OPTS="--appdir=/Applications"
-export ANDROID_HOME=/usr/local/opt/android-sdk
-
-fpath=("/usr/local/bin/" $fpath)
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-alias berap='bundle exec rake assets:precompile'
+export PATH="/usr/local/sbin:$(brew --prefix)/bin:/usr/bin:/bin:/usr/x11/bin:/usr/sbin:/sbin"
+export PATH="$HOME/phabricator/arcanist/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+source $(brew --prefix nvm)/nvm.sh
+export PATH="Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
+source $HOME/phabricator/arcanist/resources/shell/bash-completion
+source $HOME/.avoscloud_completion.sh
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+export ANDROID_HOME="/usr/local/opt/android-sdk"
+fpath=(/usr/local/share/zsh-completions $fpath)
+
 alias rm='rm -i'
-alias tma='tmux attach -d -t'
-alias tmn='tmux new -s $(basename $(pwd))'
-alias tml='tmux list-sessions'
 alias ll='ls -lh'
 alias la='ls -A'
 alias gl='git pull --rebase'
-alias be='bundle exec'
-alias pd='cd ~/projects/' #private working directory
-alias subl='subl'
 alias co="git checkout"
 alias gb="git branch"
 alias cb="git checkout -b"
 alias pubkey="pbcopy < ~/.ssh/id_rsa.pub"
 alias repoup='sh -c "$(curl -fsSL https://raw.githubusercontent.com/ZenChat/Lai-Dev-Setup/master/set_up_repo.sh)"'
+alias squish="git status && git commit -a --amend -C HEAD"
+alias devupdate="git -C $HOME/{phabricator/{arcanist,libphutil},.zprezto} pull --rebase"
 
 # why would you type 'cd dir' if you could just type 'dir'?
 setopt AUTO_CD
@@ -101,12 +100,3 @@ bindkey -M vicmd "q" push-line
  
 # it's like, space AND completion.  Gnarlbot.
 bindkey -M viins ' ' magic-spaceeval 
-
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/phabricator/arcanist/bin"
-[[ -r $NVM_DIR/bash_completion ]] && . $NVM_DIR/bash_completion
-source "$HOME/phabricator/arcanist/resources/shell/bash-completion"
-alias squish="git status && git commit -a --amend -C HEAD"
-alias arcupgrade="git -C $HOME/phabricator/arcanist pull --rebase && git -C $HOME/phabricator/libphutil pull --rebase"
-export NVM_DIR=$HOME/.nvm
-source $HOME/.avoscloud_completion.sh
-source $(brew --prefix nvm)/nvm.sh
