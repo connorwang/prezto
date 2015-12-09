@@ -26,7 +26,8 @@ alias cb="git checkout -b"
 alias pubkey="pbcopy < ~/.ssh/id_rsa.pub"
 alias repoup='sh -c "$(curl -fsSL https://raw.githubusercontent.com/ZenChat/Lai-Dev-Setup/master/set_up_repo.sh)"'
 alias squish="git status && git commit -a --amend -C HEAD"
-alias devupdate="git -C $HOME/{phabricator/{arcanist,libphutil},.zprezto} pull --rebase"
+alias devupdate="git -C $HOME/phabricator/arcanist pull --rebase && git -C $HOME/phabricator/libphutil pull --rebase \
+&& git -C $HOME/.zprezto pull --rebase"
 
 # why would you type 'cd dir' if you could just type 'dir'?
 setopt AUTO_CD

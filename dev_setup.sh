@@ -72,7 +72,6 @@ if [[ $REPLY =~ ^(Y|y|yes|Yes)$ ]]; then
     for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
         ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
     done
-    rm -f $HOME/.zcompdump; compinit
     chmod go-w /usr/local/share
     echo ""
 
@@ -167,6 +166,9 @@ if [[ $REPLY =~ ^(Y|y|yes|Yes)$ ]]; then
     arc set-config default https://dev.lai.io
     arc set-config base "git:merge-base(origin/master), arc:prompt"
     arc set-config history.immutable false
+    arc set-config arc.land.update.default rebase
+    arc set-config arc.land.onto.default master
+    arc set-config arc.feature.start.default master
 
     printf "${BLUE}SUCCESS: arc setup complete${NORMAL}\n"
     echo ""
@@ -187,7 +189,8 @@ if [[ $REPLY =~ ^(Y|y|yes|Yes)$ ]]; then
     FPATH='fpath=(/usr/local/share/zsh-completions $fpath)'
     CASKPATH='export HOMEBREW_CASK_OPTS="--appdir=/Applications"'
     SQUISHALIAS='alias squish="git status && git commit -a --amend -C HEAD"'
-    DEVUPDATEALIAS='alias devupdate="git -C $HOME/{phabricator/{arcanist,libphutil},.zprezto} pull --rebase"'
+    DEVUPDATEALIAS='alias devupdate="git -C $HOME/phabricator/arcanist pull --rebase && git -C $HOME/phabricator/libphutil pull --rebase \
+    && git -C $HOME/.zprezto pull --rebase"'
     REPOUPALIAS='alias repoup='\''sh -c "$(curl -fsSL https://raw.githubusercontent.com/ZenChat/Lai-Dev-Setup/master/set_up_repo.sh)"'\'''
 
     function shellfile_append() {
