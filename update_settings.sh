@@ -25,7 +25,7 @@ fi
 
 printf "${BOLD}${GREEN}INFO: Updating settings!${NORMAL}\n"
     rm -rf $HOME/.z*
-    git clone https://github.com/ZenChat/Lai-Dev-Setup.git "${ZDOTDIR:-$HOME}/.zprezto"
+    git clone --recursive https://github.com/ZenChat/Lai-Dev-Setup.git "${ZDOTDIR:-$HOME}/.zprezto"
     
     for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
     	ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"

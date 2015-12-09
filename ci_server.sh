@@ -29,14 +29,6 @@ As well as set up the dev environment and install the dependencies for you. \
 Confirm to continue? (y or n)${NORMAL} " -r
 
 if [[ $REPLY =~ ^(Y|y|yes|Yes)$ ]]; then
-    
-    echo ""
-    echo "============================================================================================"
-    echo ""
-    printf "${GREEN}${BOLD}INITIATING UI HACKS!${NORMAL}\n"
-    echo ""
-
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ZenChat/Lai-Dev-Setup/master/ui_hack.sh)"
 
     echo ""
     echo "============================================================================================"
@@ -68,7 +60,7 @@ if [[ $REPLY =~ ^(Y|y|yes|Yes)$ ]]; then
     printf "${GREEN}INFO: Install Zsh and Prezto${NORMAL}\n"
     brew install zsh zsh-completions
     rm -rf $HOME/.z*
-    git clone --recursive https://github.com/ZenChat/Lai-Dev-Setup.git "${ZDOTDIR:-$HOME}/.zprezto"  &>/dev/null
+    git clone https://github.com/ZenChat/Lai-Dev-Setup.git "${ZDOTDIR:-$HOME}/.zprezto"  &>/dev/null
     for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/*; do
         ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile##*/}"
     done
@@ -132,26 +124,6 @@ if [[ $REPLY =~ ^(Y|y|yes|Yes)$ ]]; then
     printf "${BLUE}SUCCESS: Watchman & Flow setup complete${NORMAL}\n"
     echo ""
 
-    printf "${GREEN}INFO: Starting Atom, Chrome, Google Drive, Dropbox, iTerm2, Quip, Slack, Sketch, Zeplin and SourceTree Setup${NORMAL}\n"
-    rm -rf $HOME/{atom.zip,.atom,nuclide,local/bin{atom,apm},Library/{Application\ Support/{com.github.atom.ShipIt,Atom},\
-    Caches/{com.github.atom,Atom},Preferences/com.github.atom.plist,Saved\ Application\ State/com.github.atom.savedState}}
-    cd /Applications
-    rm -rf {Atom,iTerm,Quip,Slack,Zeplin,Sketch,SourceTree,Google\ Chrome,Google\ Drive,Dropbox}.app
-    brew cask install atom iterm2 quip slack sketch sourcetree google-chrome google-drive dropbox --force
-    
-    git clone https://github.com/facebook/nuclide.git $HOME/nuclide
-    cd $HOME/nuclide || exit
-    ./scripts/dev/setup
-    apm install linter-eslint
-    printf "${BLUE}SUCCESS: Atom + Nuclide setup complete${NORMAL}\n"
-    echo ""
-    
-    cd $HOME || exit
-    curl -o $HOME/zeplin.zip -J -L https://zpl.io/download
-    unzip -q $HOME/zeplin.zip -d /Applications/ && rm -rf $HOME/zeplin.zip
-    printf "${BLUE}SUCCESS: iTerm2, Quip, Slack, Sketch, Zeplin and SourceTree Setup complete${NORMAL}\n"
-    echo ""
-
     printf "${GREEN}INFO: Starting arc setup${NORMAL}\n"
     mkdir -p $HOME/phabricator
     cd $HOME/phabricator || exit
@@ -199,7 +171,7 @@ if [[ $REPLY =~ ^(Y|y|yes|Yes)$ ]]; then
       done 
     }
 
-    for input in "$RBENVINIT" "$SYSPATH" "$PHABPATH" "$LOADNVM" "$NVMPATH" \
+    for input in "$RBENVINIT" "$SYSPATH" "$PHABPATH" "$NVMPATH" "$LOADNVM" \
     "$ARCCOMPLETION" "$AVOSCOMPLETION" "$ANDROIDPATH" "$FPATH" "$CASKPATH" \
     "$SQUISHALIAS" "$DEVUPDATEALIAS" "$REPOUPALIAS"; do
         shellfile_append $input

@@ -4,17 +4,15 @@ fi
 
 # Customize to your needs...
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+source $HOME/phabricator/arcanist/resources/shell/bash-completion
 export PATH="/usr/local/sbin:$(brew --prefix)/bin:/usr/bin:/bin:/usr/x11/bin:/usr/sbin:/sbin"
 export PATH="$HOME/phabricator/arcanist/bin:$PATH"
 export PATH="$HOME/.rbenv/bin:$PATH"
-export NVM_DIR="$HOME/.nvm"
-source $(brew --prefix nvm)/nvm.sh
+export NVM_DIR=$HOME/.nvm
 export PATH="Applications/Postgres.app/Contents/Versions/9.3/bin:$PATH"
-source $HOME/phabricator/arcanist/resources/shell/bash-completion
 source $HOME/.avoscloud_completion.sh
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 export ANDROID_HOME="/usr/local/opt/android-sdk"
-fpath=(/usr/local/share/zsh-completions $fpath)
 
 alias rm='rm -i'
 alias ll='ls -lh'
@@ -101,3 +99,5 @@ bindkey -M vicmd "q" push-line
  
 # it's like, space AND completion.  Gnarlbot.
 bindkey -M viins ' ' magic-spaceeval 
+
+source $(brew --prefix nvm)/nvm.sh
